@@ -1,0 +1,26 @@
+{
+    "name": "WebIP",
+    "version": "1.0",
+    "description": "Get current site's host ip",
+    "manifest_version": 2,
+    "permissions": [
+        "webRequest",
+        "http://*/",
+        "https://*/"
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "content_scripts": [
+        {
+            "all_frames" : false,
+            "matches": ["http://*/*", "https://*/*"],
+            "run_at": "document_end",
+            "js": ["assets/jquery.min.js", "content_script.js"]
+        }
+    ],
+    "page_action": {
+        "default_title": "Show host ip",
+        "default_icon": "assets/page_icon_76x76.png"
+    }
+}
