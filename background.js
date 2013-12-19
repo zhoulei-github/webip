@@ -24,7 +24,7 @@ chrome.webRequest.onCompleted.addListener(function(details) {
     ipList[ details.url ] = details.ip;
     return;
 }, {
-    urls: ["http://*/", "https://*/"],
+    urls: ["http://*/*", "https://*/*"],
     types: []
 }, []);
 
