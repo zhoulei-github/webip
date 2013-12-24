@@ -21,6 +21,11 @@
     ],
     "page_action": {
         "default_title": "Show host ip",
-        "default_icon": "assets/page_icon_76x76.png"
+        "default_icon": "assets/page_icon_16.png"
+    },
+    "icons": {
+        "16": "assets/page_icon_16.png",
+        "48": "assets/page_icon_16.png",
+        "128": "assets/page_icon_16.png"
     }
 }

@@ -1,5 +1,5 @@
 var ipList = {},
-    status = 1,
+    status = localStorage.getItem('status'),
     messages = [
         "Enable",
         "Disable"
@@ -17,6 +17,17 @@ function getIp(url)
 // Show action page
 chrome.tabs.onUpdated.addListener(function(tabID) {
     chrome.pageAction.show(tabID);
+
+    var iconPath = '';
+    if (status == 0) {
+        iconPath = "assets/page_icon_16_disable.png"
+    } else {
+        iconPath = "assets/page_icon_16.png"
+    }
+    chrome.pageAction.setIcon({
+        "tabId": tabID,
+        "path": iconPath
+    });
 });
 
 // Record IPs
@@ -40,19 +51,25 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
     switch(request.call) {
         case "getIP": 
-            var currentIP = getIp(sender.tab.url);
-            sendResponse({
-                ip : currentIP
-            });
+            if (parseInt(status) === 1 || status === null) {
+                var currentIP = getIp(sender.tab.url);
+                sendResponse({
+                    ip : currentIP
+                });
+            }
             break;
         default:
             sendResponse({});
     }
 });
 
-// Switcher
 chrome.pageAction.onClicked.addListener(function(tab) {
-    status = status == 0 ? 1 : 0;
+    if (status === null) {
+        status = 1;
+    } else {
+        status = parseInt(status) === 1 ? 0 : 1;
+    }
+    localStorage.setItem('status', status);
 
     // Update title
     chrome.pageAction.setTitle({
@@ -63,15 +80,14 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     // Update icon
     var iconPath = '';
     if (status == 0) {
-        iconPath = "assets/page_icon_76x76_disable.png"
+        iconPath = "assets/page_icon_16_disable.png"
     } else {
-        iconPath = "assets/page_icon_76x76.png"
+        iconPath = "assets/page_icon_16.png"
     }
     chrome.pageAction.setIcon({
         "tabId": tab.id,
         "path": iconPath
     });
 
-    // 
     chrome.tabs.sendMessage(tab.id, {"call": "switcher", "status": status});
 });

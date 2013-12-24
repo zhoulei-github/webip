@@ -1,31 +1,38 @@
-var title = document.title;
+$(document).ready(function() {
 
-function showIP()
-{
-    chrome.runtime.sendMessage({"call": "getIP"}, function(r) {
-        document.title = title + "  " + r.ip + " ";
-    });
-}
+    var title = document.title;
+    var currentIP = '';
 
-function hiddenIP()
-{
-    document.title = title;
-}
-
-chrome.runtime.onMessage.addListener(function(request, sender, response) {
-    if (typeof(request.call) === 'undefined') {
-        return;
-    }
-
-    if (request.call == 'switcher') {
-        if (request.status == 0) {
-            hiddenIP();
+    function showIP()
+    {
+        if (currentIP == '') {
+            chrome.runtime.sendMessage({"call": "getIP"}, function(r) {
+                currentIP = r.ip;
+                document.title = title + "  " + currentIP + " ";
+            });
         } else {
-            showIP();
+            document.title = title + "  " + currentIP + " ";
         }
     }
-});
 
-$(document).ready(function() {
+    function hiddenIP()
+    {
+        document.title = title;
+    }
+
+    chrome.runtime.onMessage.addListener(function(request, sender, response) {
+        if (typeof(request.call) === 'undefined') {
+            return;
+        }
+
+        if (request.call == 'switcher') {
+            if (request.status == 0) {
+                hiddenIP();
+            } else {
+                showIP();
+            }
+        }
+    });
+
     showIP();
 });
