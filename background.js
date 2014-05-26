@@ -16,13 +16,13 @@ function getIp(url)
 
 // Show action page
 chrome.tabs.onUpdated.addListener(function(tabID) {
+
     chrome.pageAction.show(tabID);
 
-    var iconPath = '';
     if (status == 0) {
-        iconPath = "assets/page_icon_16_disable.png"
+        var iconPath = "assets/page_icon_16_disable.png"
     } else {
-        iconPath = "assets/page_icon_16.png"
+        var iconPath = "assets/page_icon_16.png"
     }
     chrome.pageAction.setIcon({
         "tabId": tabID,
@@ -32,7 +32,7 @@ chrome.tabs.onUpdated.addListener(function(tabID) {
 
 // Record IPs
 chrome.webRequest.onCompleted.addListener(function(details) {
-    ipList[ details.url ] = details.ip;
+    ipList[details.url] = details.ip;
     return;
 }, {
     urls: ["http://*/*", "https://*/*"],
@@ -78,11 +78,10 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     });
 
     // Update icon
-    var iconPath = '';
     if (status == 0) {
-        iconPath = "assets/page_icon_16_disable.png"
+        var iconPath = "assets/page_icon_16_disable.png"
     } else {
-        iconPath = "assets/page_icon_16.png"
+        var iconPath = "assets/page_icon_16.png"
     }
     chrome.pageAction.setIcon({
         "tabId": tab.id,
