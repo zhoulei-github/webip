@@ -16,7 +16,8 @@
             "all_frames" : false,
             "matches": ["http://*/*", "https://*/*"],
             "run_at": "document_end",
-            "js": ["assets/jquery.min.js", "content_script.js"]
+            "js": ["content_script.js"],
+            "css": ["assets/style.css"]
         }
     ],
     "page_action": {

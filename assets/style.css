@@ -1,0 +1,14 @@
+#chrome_extension_web_ip_div {
+    position: fixed;
+    right: 10px;
+    bottom: 0px;
+    padding: 4px 4px 0;
+    background-color: #f9f9f9;
+    border: 1px #ccc solid;
+    color:#000;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
