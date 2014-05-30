@@ -1,5 +1,6 @@
 var ip = '';
 var containerId = 'chrome_extension_web_ip_div';
+var classname = 'right';
 
 function show() {
     if (ip == '') {
@@ -22,7 +23,17 @@ function display() {
     var box = document.createElement('div');
     box.setAttribute('id', containerId)
     box.innerText = ip;
+    box.className = classname;
     document.body.appendChild(box);
+    box.addEventListener('mouseover', function () {
+        if (this.className == '' || this.className == 'right') {
+            classname = 'left';
+            this.className = classname;
+        } else {
+            classname = 'right';
+            this.className = classname;
+        }
+    });
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, response) {
