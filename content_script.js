@@ -29,15 +29,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, response) {
     if (typeof(request.call) === 'undefined') {
         return;
     }
-    console.log(request);
 
     if (request.call == 'switcher') {
         if (request.status == 0) {
-            show();
-            console.log('show');
-        } else {
-            console.log('hidden');
             hidden();
+        } else {
+            show();
         }
     }
 });
