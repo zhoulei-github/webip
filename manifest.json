@@ -20,7 +20,11 @@
             "css": ["assets/style.css"]
         }
     ],
-    "page_action": {
+    /*"page_action": {
+        "default_title": "Show host ip",
+        "default_icon": "assets/page_icon_16.png"
+    },*/
+    "browser_action": {
         "default_title": "Show host ip",
         "default_icon": "assets/page_icon_16.png"
     },

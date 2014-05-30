@@ -14,22 +14,6 @@ function getIp(url)
     }
 }
 
-// Show action page
-chrome.tabs.onUpdated.addListener(function(tabID) {
-
-    chrome.pageAction.show(tabID);
-
-    if (status == 0) {
-        var iconPath = "assets/page_icon_16_disable.png"
-    } else {
-        var iconPath = "assets/page_icon_16.png"
-    }
-    chrome.pageAction.setIcon({
-        "tabId": tabID,
-        "path": iconPath
-    });
-});
-
 // Record IPs
 chrome.webRequest.onCompleted.addListener(function(details) {
     ipList[details.url] = details.ip;
@@ -63,7 +47,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 });
 
-chrome.pageAction.onClicked.addListener(function(tab) {
+chrome.browserAction.onClicked.addListener(function (tab){
     if (status === null) {
         status = 1;
     } else {
@@ -72,7 +56,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     localStorage.setItem('status', status);
 
     // Update title
-    chrome.pageAction.setTitle({
+    chrome.browserAction.setTitle({
         "tabId": tab.id,
         "title": messages[status]
     });
@@ -83,7 +67,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     } else {
         var iconPath = "assets/page_icon_16.png"
     }
-    chrome.pageAction.setIcon({
+    chrome.browserAction.setIcon({
         "tabId": tab.id,
         "path": iconPath
     });
